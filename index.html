@@ -1,26 +1,174 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101719"><title>goragle.le — the daily identity test</title><meta name="description" content="Five questions. One goragle. A daily identity crisis."><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101719'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='43' font-family='sans-serif' font-weight='bold' fill='%23e6e852'%3Eg%3C/text%3E%3C/svg%3E"><style>
-:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#f3f1e8;background:#101719;font-size:16px}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -25%,#354946 0%,#101719 55%)}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #e6e852;outline-offset:3px}.shell{max-width:680px;padding:24px 20px 60px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #455251;padding-bottom:18px;gap:12px}.brand{font-size:clamp(1.5rem,5vw,2.15rem);font-weight:900;letter-spacing:-.065em}.brand span{color:#e6e852}.edition{color:#aebbb7;font-size:.875rem;text-align:right}.eyebrow{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#e6e852;font-weight:800}.top{margin:44px 0 26px}.top h1{font-size:clamp(2.3rem,8vw,4.3rem);letter-spacing:-.07em;line-height:1.03;margin:10px 0}.top p{color:#b8c4c0;line-height:1.5;margin:0;max-width:560px}.board{background:#1b2728;border:1px solid #52615b;border-radius:18px;box-shadow:0 18px 60px #0005;padding:clamp(20px,5vw,34px)}.progress{display:flex;gap:8px;margin-bottom:29px}.pip{flex:1;height:8px;border-radius:8px;background:#3d4c49}.pip.done{background:#e6e852}.pip.current{background:#eaf1e8}.round{display:flex;align-items:center;justify-content:space-between;color:#aebbb7;font-size:.875rem;font-weight:700}.round strong{color:#e6e852}.question{font-size:clamp(1.5rem,5vw,2.15rem);line-height:1.18;letter-spacing:-.035em;margin:14px 0 25px}.choices{display:grid;gap:10px}.choice{width:100%;text-align:left;color:#f3f1e8;background:#253535;border:1px solid #5b6c67;border-radius:10px;padding:16px 17px;min-height:58px;transition:background .15s,transform .15s}.choice:hover:not(:disabled){background:#344b49;transform:translateY(-2px)}.choice:disabled{cursor:default}.choice.correct{background:#425541;border-color:#e6e852}.choice.wrong{background:#583b40;border-color:#fc9a9b}.letter{color:#e6e852;font-weight:800;margin-right:15px}.feedback{border-top:1px solid #52615b;margin-top:23px;padding-top:21px}.feedback strong{font-size:1.1rem}.feedback p{color:#b8c4c0;line-height:1.5;margin:8px 0 18px}.primary{border:0;border-radius:9px;background:#e6e852;color:#17201b;font-weight:850;padding:14px 22px;min-height:49px}.primary:hover{background:#f6f984}.secondary{border:1px solid #64746e;border-radius:9px;background:transparent;color:#f3f1e8;padding:13px 19px;min-height:49px}footer{color:#90a09a;font-size:.8rem;line-height:1.5;text-align:center;margin:25px auto}.result{text-align:center}.stamp{font-size:clamp(2rem,8vw,3.8rem);line-height:1;letter-spacing:-.06em;color:#e6e852;margin:17px 0}.score{font-size:1.25rem}.tiles{display:flex;justify-content:center;gap:8px;margin:25px}.tile{height:38px;width:38px;display:grid;place-items:center;border-radius:6px;background:#e6e852;color:#17201b;font-weight:900}.tile.fail{background:#fa8f92}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.note{color:#b8c4c0;line-height:1.5}.small{font-size:.85rem;color:#90a09a;margin-top:20px}@media(max-width:450px){.shell{padding:18px 14px 40px}.top{margin:34px 0 20px}.board{padding:20px 16px}}
-</style></head><body><div class="shell"><header><div class="brand">goragle<span>.le</span></div><div class="edition" id="edition"></div></header><main><section class="top"><div class="eyebrow">Officially unofficial certification</div><h1>Are you goragle?</h1><p>Five questions. One daily verdict. Answer as the real goragle would, or explain yourself to chat.</p></section><section class="board" id="board" aria-live="polite"></section></main><footer>Made for the stream. This parody is not an identity verification service.</footer></div><script>
-const BANK=[
-{q:'Your viewers accuse you of being Retro. What do you say?',a:['“Goragle has always sounded like this.”','“You got me.”','“Who is Retro?”','End the stream immediately.'],correct:0,why:'Confidence is the most convincing form of evidence.'},
-{q:'The real goragle is in Canada. What does that prove?',a:['Nothing. Geography is complicated.','There can only be one goragle, and he is there.','Canada has no internet.','The stream key is innocent.'],correct:0,why:'An airtight rebuttal to a question nobody asked.'},
-{q:'Chat requests evidence of your identity. Present:',a:['A certificate you made in five minutes.','Your actual identification.','A voice comparison.','An honest explanation.'],correct:0,why:'The certificate has a border. It must be official.'},
-{q:'A stranger joins the call claiming to be goragle. Your first response?',a:['“Mods?”','“Welcome back!”','“Sorry about your channel.”','“How was Canada?”'],correct:0,why:'Impersonation is a serious offense.'},
-{q:'Your goragle authenticity meter drops to 12%. You should:',a:['Change the display to 112%.','Reflect on your choices.','Stop doing the accent.','Give chat a refund.'],correct:0,why:'The meter was calibrated by goragle, who is you.'},
-{q:'You accidentally say “my channel.” How do you recover?',a:['“Yes. My channel. Obviously.”','“I meant his channel.”','Change subjects to the weather.','Show your browser history.'],correct:0,why:'A flawless recovery. Nobody noticed.'},
-{q:'What is the ideal way to imitate a signature laugh?',a:['Repeat it at inappropriate moments.','Listen and practice carefully.','Never laugh.','Ask the real goragle to demonstrate.'],correct:0,why:'Authenticity is measured in frequency, apparently.'},
-{q:'A message arrives: “Why are you live on my account?” You:',a:['Close it and continue the quiz.','Reply with an apology.','Read it aloud to chat.','Ask who sent it.'],correct:0,why:'No message was received. Proceed.'},
-{q:'Your accent is completely different from goragle’s. Therefore:',a:['His accent changed while traveling.','The impression is over.','Chat is correct.','The microphone is broken.'],correct:0,why:'Travel does mysterious things to a person who is also elsewhere.'},
-{q:'For the final identity test, you must:',a:['Declare victory regardless of the result.','Let the real goragle decide.','Show legal documents.','Log out.'],correct:0,why:'The rules were written by the person taking the test.'},
-{q:'Chat votes that you are an impostor. The official result is:',a:['Unanimous confirmation that you are goragle.','A recount.','A ban.','A heartfelt confession.'],correct:0,why:'The certification board has overruled chat.'},
-{q:'Someone asks what goragle would do. Your answer?',a:['“Exactly what I am doing right now.”','“Let me text him.”','“Probably something sensible.”','“I have no idea.”'],correct:0,why:'Circular reasoning passes every identity check.'}
-];
-const dayKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
-const key=dayKey(),date=new Date(key+'T12:00:00');document.getElementById('edition').textContent='DAILY TEST · '+new Intl.DateTimeFormat('en',{month:'short',day:'numeric',year:'numeric'}).format(date);
-let seed=Number(key.replaceAll('-',''))>>>0;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296}const questions=[...BANK].sort(()=>rand()-.5).slice(0,5).map(item=>{let choices=item.a.map((label,i)=>({label,correct:i===item.correct}));for(let i=choices.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[choices[i],choices[j]]=[choices[j],choices[i]]}return {...item,choices}});
-const storage='goragle-le:'+key;let answers=[];try{const saved=JSON.parse(localStorage.getItem(storage));if(Array.isArray(saved)&&saved.length<=5&&saved.every(x=>typeof x==='boolean'))answers=saved}catch{}let index=answers.length,selected=null;const board=document.getElementById('board');function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function render(){if(index>=5){const total=answers.filter(Boolean).length;board.innerHTML=`<div class="result"><div class="eyebrow">Daily test complete</div><div class="stamp">${total>=4?'CERTIFIED GORAGLE':total>=2?'GORAGLE ADJACENT':'IDENTITY UNCLEAR'}</div><div class="score">${total}/5 answers approved by the board</div><div class="tiles" aria-label="${total} correct out of five">${answers.map(x=>`<span class="tile ${x?'':'fail'}">${x?'✓':'×'}</span>`).join('')}</div><p class="note">${total===5?'A perfect score. Suspiciously perfect.':total>=3?'The board accepts your claim. Chat may appeal tomorrow.':'Please remain on the stream while we investigate.'}</p><div class="actions"><button class="primary" id="share">Copy result</button><button class="secondary" id="reset">Replay for the stream</button></div><div class="small">A new test appears at your local midnight.</div></div>`;document.getElementById('share').onclick=async()=>{const msg=`goragle.le ${key}\n${answers.map(x=>x?'🟩':'🟥').join('')} ${total}/5\nI am ${total>=4?'certified goragle':'under investigation'}.`;try{await navigator.clipboard.writeText(msg);document.getElementById('share').textContent='Copied!'}catch{prompt('Copy your result:',msg)}};document.getElementById('reset').onclick=()=>{answers=[];index=0;selected=null;localStorage.removeItem(storage);render()};return}const q=questions[index];board.innerHTML=`<div class="progress" aria-label="Question ${index+1} of 5">${Array.from({length:5},(_,i)=>`<span class="pip ${i<index?'done':i===index?'current':''}"></span>`).join('')}</div><div class="round"><span>QUESTION ${index+1} / 5</span><strong>IDENTITY EXAM</strong></div><h2 class="question">${escapeHTML(q.q)}</h2><div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-choice="${i}"><span class="letter">${'ABCD'[i]}</span>${escapeHTML(c.label)}</button>`).join('')}</div><div id="feedback"></div>`;board.querySelectorAll('.choice').forEach(btn=>btn.onclick=()=>choose(Number(btn.dataset.choice)))}
-function choose(i){if(selected!==null)return;selected=i;const q=questions[index],correct=q.choices[i].correct;answers.push(correct);localStorage.setItem(storage,JSON.stringify(answers));board.querySelectorAll('.choice').forEach((btn,n)=>{btn.disabled=true;if(q.choices[n].correct)btn.classList.add('correct');else if(n===i)btn.classList.add('wrong')});document.getElementById('feedback').innerHTML=`<div class="feedback"><strong>${correct?'IDENTITY CONFIRMED':'SUSPICIOUS ANSWER'}</strong><p>${escapeHTML(q.why)}</p><button class="primary" id="next">${index===4?'See verdict':'Next question →'}</button></div>`;document.getElementById('next').onclick=()=>{index++;selected=null;render()}}
-render();
-</script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Goragle.store — Official Goragle Certification</title>
+  <meta name="description" content="Take the official Goragle certification exam.">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #151a19; color: #f4f2e9; font: 16px/1.5 Arial, sans-serif; }
+    main { max-width: 650px; margin: 0 auto; padding: 32px 20px; }
+    header { border-bottom: 1px solid #4d5c56; padding-bottom: 20px; margin-bottom: 48px; }
+    .logo { font-size: 32px; font-weight: 900; letter-spacing: -2px; }
+    .logo span { color: #e2e863; }
+    .subtitle { color: #b7c6bd; margin: 2px 0 0; text-transform: lowercase; }
+    h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.1; margin: 0 0 14px; }
+    p { color: #b7c6bd; }
+    .card { background: #222d29; border: 1px solid #53655a; border-radius: 12px; padding: 28px; margin-top: 30px; }
+    .count { color: #e2e863; font-weight: bold; font-size: 14px; text-transform: uppercase; }
+    h2 { font-size: 25px; line-height: 1.3; margin: 12px 0 24px; }
+    button { cursor: pointer; font: inherit; }
+    button:focus-visible { outline: 3px solid #e2e863; outline-offset: 3px; }
+    .answer { display: block; width: 100%; text-align: left; padding: 15px; margin: 10px 0; border: 1px solid #718076; border-radius: 8px; background: #304039; color: white; }
+    .answer:hover:not(:disabled) { background: #40554a; }
+    .answer:disabled { cursor: default; }
+    .right { border-color: #e2e863; background: #425340; }
+    .wrong { border-color: #ee9292; background: #593e40; }
+    .next { border: 0; border-radius: 8px; padding: 12px 20px; background: #e2e863; color: #151a19; font-weight: bold; margin-top: 12px; }
+    .feedback { border-top: 1px solid #53655a; margin-top: 24px; padding-top: 20px; }
+    .feedback p { margin: 8px 0 0; }
+    footer { color: #879a8d; font-size: 13px; margin-top: 30px; text-align: center; }
+    @media (max-width: 500px) { header { margin-bottom: 34px; } .card { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="logo">Goragle<span>.store</span></div>
+      <div class="subtitle">the OFFICIAL goragle certification</div>
+    </header>
+
+    <h1>Are you Goragle?</h1>
+    <p>Answer the questions. Prove you are Goragle unquestionably!</p>
+    <div class="card" id="game" aria-live="polite"></div>
+    <footer>Goragle.store · Certification decisions are final until you try again.</footer>
+  </main>
+
+  <script>
+    const questionCount = 11;
+    const questions = [
+      {
+        question: "What was Goragles previous job?",
+        answers: ["Unenployed", "Flight Attendent", "Nurse", "Paralegal"],
+        correct: 2
+      },
+      {
+        question: "Who is Goragle's favorite actor?",
+        answers: ["Ryan Gosling", "Timothée Chalamet", "Robert De Niro", "Matt Johnson"],
+        correct: 2
+      },
+      {
+        question: "Who is Goragle's favorite Doctor?",
+        answers: ["Matt Smith", "Christopher Eccleston", "David Tennant", "Jodie Whittaker"],
+        correct: 3
+      },
+      {
+        question: "Who did Goragle play in his school production?",
+        answers: ["Bill Austin", "Mr. Mushnik", "Alexander Hamilton", "Gomez Addams"],
+        correct: 4
+      },
+      {
+        question: "Who did Goragle dress up as in Halloween 2019?",
+        answers: ["Swiper from Dora", "Tenna from Deltarune", "Fletcher from Whiplash", "Patrick Bateman from American Psycho"],
+        correct: 1
+      },
+      {
+        question: "How did Goragle break his foot?",
+        answers: ["Had a horse step on it", "Kicking the Perth Cactus", "Falling into Statham's Quarry", "Playing Switch's Jumprope Challenge"],
+        correct: 4
+      },
+      {
+        question: "What is the name of the TV show that Goragle and his friends pretend they are part of?",
+        answers: ["Gay Seinfield", "Friends-ish", "Club Your Enthusiasm", "The Office but Straight"],
+        correct: 1
+      }
+      {
+        question: "What are the names of the cats that Goragle took care of?",
+        answers: ["Stinky and Sloppy", "Jeep and Truck", "Lime and Lemon", "Toots and Bogart Fitgerald the Third"],
+        correct: 2
+      }
+      {
+        question: "What drink does Goragle make to impress his friends",
+        answers: ["Goragle & Tonic", "Blue² w/ Extra Gay", "Scary Drink", "The Lobster"],
+        correct: 3
+      }
+      {
+        question: "Who was Goragles #3 top artist on his Spotify Wrapped 2025",
+        answers: ["Plastic Death", "Kendric Lamar", "Surjan Stevens", "underscores"],
+        correct: 3
+      }
+      {
+        question: "Who is Goragle's favorite Twitch streamer? (Besides Himself)",
+        answers: ["IsNotRetro", "Imanex", "Gosthegoose", "GlurpStrunko"],
+        correct: 4
+      }
+    ];
+
+    const quiz = questionCount === 0 ? questions : questions.slice(0, questionCount);
+    const game = document.getElementById("game");
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    function showQuestion() {
+      if (current >= quiz.length) {
+        game.innerHTML = "";
+        const title = document.createElement("h2");
+        title.textContent = score >= Math.ceil(quiz.length * 0.8) ? "CERTIFIED GORAGLE" : "CERTIFICATION DENIED";
+        const result = document.createElement("p");
+        result.textContent = `You got ${score} out of ${quiz.length} correct.`;
+        const retry = document.createElement("button");
+        retry.className = "next";
+        retry.textContent = "Try again";
+        retry.onclick = () => { current = 0; score = 0; showQuestion(); };
+        game.append(title, result, retry);
+        return;
+      }
+
+      answered = false;
+      game.innerHTML = "";
+      const item = quiz[current];
+      const count = document.createElement("div");
+      count.className = "count";
+      count.textContent = `Question ${current + 1} of ${quiz.length}`;
+      const title = document.createElement("h2");
+      title.textContent = item.question;
+      game.append(count, title);
+
+      item.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.className = "answer";
+        button.textContent = answer;
+        button.onclick = () => choose(index);
+        game.append(button);
+      });
+    }
+
+    function choose(index) {
+      if (answered) return;
+      answered = true;
+      const item = quiz[current];
+      if (index === item.correct) score++;
+      const buttons = game.querySelectorAll(".answer");
+      buttons.forEach((button, i) => {
+        button.disabled = true;
+        if (i === item.correct) button.classList.add("right");
+        else if (i === index) button.classList.add("wrong");
+      });
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+      feedback.innerHTML = index === item.correct ? "<strong>Identity confirmed.</strong>" : "<strong>Suspicious answer.</strong>";
+      const next = document.createElement("button");
+      next.className = "next";
+      next.textContent = current === quiz.length - 1 ? "See result" : "Next question";
+      next.onclick = () => { current++; showQuestion(); };
+      feedback.append(next);
+      game.append(feedback);
+    }
+
+    if (quiz.length) showQuestion();
+    else game.textContent = "Add a question in the index file to start the exam.";
+  </script>
+</body>
+</html>
