@@ -51,57 +51,57 @@
       {
         question: "What was Goragles previous job?",
         answers: ["Unenployed", "Flight Attendent", "Nurse", "Paralegal"],
-        correct: 2
+        correct: 1
       },
       {
         question: "Who is Goragle's favorite actor?",
         answers: ["Ryan Gosling", "Timothée Chalamet", "Robert De Niro", "Matt Johnson"],
-        correct: 2
+        correct: 1
       },
       {
         question: "Who is Goragle's favorite Doctor?",
         answers: ["Matt Smith", "Christopher Eccleston", "David Tennant", "Jodie Whittaker"],
-        correct: 3
+        correct: 2
       },
       {
         question: "Who did Goragle play in his school production?",
         answers: ["Bill Austin", "Mr. Mushnik", "Alexander Hamilton", "Gomez Addams"],
-        correct: 4
+        correct: 3
       },
       {
         question: "Who did Goragle dress up as in Halloween 2019?",
         answers: ["Swiper from Dora", "Tenna from Deltarune", "Fletcher from Whiplash", "Patrick Bateman from American Psycho"],
-        correct: 1
+        correct: 0
       },
       {
         question: "How did Goragle break his foot?",
         answers: ["Had a horse step on it", "Kicking the Perth Cactus", "Falling into Statham's Quarry", "Playing Switch's Jumprope Challenge"],
-        correct: 4
+        correct: 3
       },
       {
         question: "What is the name of the TV show that Goragle and his friends pretend they are part of?",
         answers: ["Gay Seinfield", "Friends-ish", "Club Your Enthusiasm", "The Office but Straight"],
-        correct: 1
-      }
+        correct: 0
+      },
       {
         question: "What are the names of the cats that Goragle took care of?",
         answers: ["Stinky and Sloppy", "Jeep and Truck", "Lime and Lemon", "Toots and Bogart Fitgerald the Third"],
-        correct: 2
-      }
+        correct: 1
+      },
       {
         question: "What drink does Goragle make to impress his friends",
         answers: ["Goragle & Tonic", "Blue² w/ Extra Gay", "Scary Drink", "The Lobster"],
-        correct: 3
-      }
+        correct: 2
+      },
       {
         question: "Who was Goragles #3 top artist on his Spotify Wrapped 2025",
         answers: ["Plastic Death", "Kendric Lamar", "Surjan Stevens", "underscores"],
-        correct: 3
-      }
+        correct: 2
+      },
       {
         question: "Who is Goragle's favorite Twitch streamer? (Besides Himself)",
         answers: ["IsNotRetro", "Imanex", "Gosthegoose", "GlurpStrunko"],
-        correct: 4
+        correct: 3
       }
     ];
 
@@ -115,7 +115,7 @@
       if (current >= quiz.length) {
         game.innerHTML = "";
         const title = document.createElement("h2");
-        title.textContent = score >= Math.ceil(quiz.length * 0.8) ? "CERTIFIED GORAGLE" : "CERTIFICATION DENIED";
+        title.textContent = score >= Math.ceil(quiz.length * 0.8) ? "YOU ARE 100% GORAGLE" : "CERTIFICATION DENIED";
         const result = document.createElement("p");
         result.textContent = `You got ${score} out of ${quiz.length} correct.`;
         const retry = document.createElement("button");
@@ -149,16 +149,18 @@
       if (answered) return;
       answered = true;
       const item = quiz[current];
-      if (index === item.correct) score++;
+      // Accept 4 as the fourth answer in the original question list.
+      const correct = item.correct === 4 ? 3 : item.correct;
+      if (index === correct) score++;
       const buttons = game.querySelectorAll(".answer");
       buttons.forEach((button, i) => {
         button.disabled = true;
-        if (i === item.correct) button.classList.add("right");
+        if (i === correct) button.classList.add("right");
         else if (i === index) button.classList.add("wrong");
       });
       const feedback = document.createElement("div");
       feedback.className = "feedback";
-      feedback.innerHTML = index === item.correct ? "<strong>Identity confirmed.</strong>" : "<strong>Suspicious answer.</strong>";
+      feedback.innerHTML = index === correct ? "<strong>Correct! Nice job Goragle! </strong>" : "<strong>Wrong! Dumbass! </strong>";
       const next = document.createElement("button");
       next.className = "next";
       next.textContent = current === quiz.length - 1 ? "See result" : "Next question";
