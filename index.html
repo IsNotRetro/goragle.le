@@ -19,17 +19,183 @@
     .count { color: #e2e863; font-weight: bold; font-size: 14px; text-transform: uppercase; }
     h2 { font-size: 25px; line-height: 1.3; margin: 12px 0 24px; }
     button { cursor: pointer; font: inherit; }
-    button:focus-visible { outline: 3px solid #e2e863; outline-offset: 3px; }
+    button:focus-visible,
+    input:focus-visible { outline: 3px solid #e2e863; outline-offset: 3px; }
     .answer { display: block; width: 100%; text-align: left; padding: 15px; margin: 10px 0; border: 1px solid #718076; border-radius: 8px; background: #304039; color: white; }
     .answer:hover:not(:disabled) { background: #40554a; }
     .answer:disabled { cursor: default; }
     .right { border-color: #e2e863; background: #425340; }
     .wrong { border-color: #ee9292; background: #593e40; }
     .next { border: 0; border-radius: 8px; padding: 12px 20px; background: #e2e863; color: #151a19; font-weight: bold; margin-top: 12px; }
+    .next:hover { filter: brightness(1.08); }
     .feedback { border-top: 1px solid #53655a; margin-top: 24px; padding-top: 20px; }
     .feedback p { margin: 8px 0 0; }
     footer { color: #879a8d; font-size: 13px; margin-top: 30px; text-align: center; }
-    @media (max-width: 500px) { header { margin-bottom: 34px; } .card { padding: 20px; } }
+
+    .certificate-form {
+      border-top: 1px solid #53655a;
+      margin-top: 24px;
+      padding-top: 22px;
+    }
+    .certificate-form label {
+      display: block;
+      margin-bottom: 8px;
+      color: #f4f2e9;
+      font-weight: bold;
+    }
+    .certificate-form-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .certificate-form input {
+      min-width: 0;
+      flex: 1;
+      border: 1px solid #718076;
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #151a19;
+      color: #f4f2e9;
+      font: inherit;
+    }
+    .certificate-form input::placeholder { color: #879a8d; }
+    .certificate-error {
+      min-height: 1.5em;
+      margin: 7px 0 0;
+      color: #ee9292;
+      font-size: 14px;
+    }
+
+    .certificate-wrap { margin-top: 28px; }
+    .certificate {
+      position: relative;
+      overflow: hidden;
+      background: #f5efd9;
+      color: #18201c;
+      border: 8px double #53655a;
+      border-radius: 4px;
+      padding: 48px 30px 36px;
+      text-align: center;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+    }
+    .certificate::before,
+    .certificate::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border: 2px solid rgba(83, 101, 90, 0.18);
+      transform: rotate(45deg);
+    }
+    .certificate::before { left: -82px; top: -82px; }
+    .certificate::after { right: -82px; bottom: -82px; }
+    .certificate-kicker {
+      color: #53655a;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .certificate h3 {
+      margin: 10px 0 24px;
+      font-size: clamp(30px, 7vw, 46px);
+      line-height: 1;
+      letter-spacing: -1.5px;
+    }
+    .certificate p { color: #415047; }
+    .certificate-name {
+      display: inline-block;
+      min-width: min(360px, 90%);
+      margin: 8px auto 12px;
+      padding: 0 16px 8px;
+      border-bottom: 2px solid #53655a;
+      color: #151a19;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 7vw, 44px);
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+    .certificate-statement {
+      margin: 8px 0 26px;
+      font-size: 19px;
+    }
+    .certificate-statement strong { color: #151a19; }
+    .certificate-seal {
+      display: grid;
+      place-items: center;
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 18px;
+      border: 4px double #53655a;
+      border-radius: 50%;
+      color: #53655a;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      transform: rotate(-6deg);
+    }
+    .certificate-foot {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+    .certificate-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .secondary {
+      border: 1px solid #718076;
+      border-radius: 8px;
+      padding: 12px 20px;
+      background: #304039;
+      color: #f4f2e9;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+    .secondary:hover { background: #40554a; }
+
+    @media (max-width: 500px) {
+      header { margin-bottom: 34px; }
+      .card { padding: 20px; }
+      .certificate-form-row { display: block; }
+      .certificate-form .next { width: 100%; }
+      .certificate { padding: 38px 18px 30px; }
+    }
+
+    @page {
+      size: landscape;
+      margin: 0.45in;
+    }
+
+    @media print {
+      body { background: white; }
+      body * { visibility: hidden !important; }
+
+      #certificate,
+      #certificate * {
+        visibility: visible !important;
+      }
+
+      #certificate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        min-height: 7in;
+        margin: 0;
+        box-shadow: none;
+        border-width: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
   </style>
 </head>
 <body>
@@ -38,7 +204,6 @@
       <div class="logo">Goragle<span>.store</span></div>
       <div class="subtitle">the OFFICIAL goragle certification</div>
     </header>
-
     <h1>Are you Goragle?</h1>
     <p>Answer the questions. Prove you are Goragle unquestionably!</p>
     <div class="card" id="game" aria-live="polite"></div>
@@ -127,33 +292,117 @@
 
     const quiz = questionCount === 0 ? questions : questions.slice(0, questionCount);
     const game = document.getElementById("game");
+
     let current = 0;
     let score = 0;
     let answered = false;
 
+    // -------------------------
+    // Sound effects
+    // -------------------------
+    let audioContext = null;
+
+    function getAudioContext() {
+      if (!audioContext) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return null;
+        audioContext = new AudioContextClass();
+      }
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume().catch(() => {});
+      }
+
+      return audioContext;
+    }
+
+    function playTone(frequency, duration, {
+      type = "sine",
+      volume = 0.06,
+      delay = 0,
+      endFrequency = null
+    } = {}) {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const start = ctx.currentTime + delay;
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+
+      if (endFrequency !== null) {
+        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, start + duration);
+      }
+
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(volume, start + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+
+      oscillator.start(start);
+      oscillator.stop(start + duration + 0.02);
+    }
+
+    function playCorrectSfx() {
+      playTone(523.25, 0.09, { type: "triangle", volume: 0.08 });
+      playTone(659.25, 0.09, { type: "triangle", volume: 0.08, delay: 0.07 });
+      playTone(783.99, 0.14, { type: "triangle", volume: 0.08, delay: 0.14 });
+    }
+
+    function playWrongSfx() {
+      playTone(210, 0.18, { type: "sawtooth", volume: 0.045, endFrequency: 145 });
+      playTone(150, 0.20, { type: "square", volume: 0.025, delay: 0.13, endFrequency: 105 });
+    }
+
+    function playHoverSfx() {
+      playTone(900, 0.035, { type: "sine", volume: 0.018, endFrequency: 1080 });
+    }
+
+    // Browsers will not allow audio until the user has interacted with the page.
+    // This unlocks audio on their first click/tap/key press.
+    function unlockAudio() {
+      getAudioContext();
+    }
+
+    document.addEventListener("pointerdown", unlockAudio, { once: true });
+    document.addEventListener("keydown", unlockAudio, { once: true });
+
+    // Delegated listener also covers buttons created later.
+    document.addEventListener("mouseover", (event) => {
+      const button = event.target.closest && event.target.closest("button");
+      if (!button || button.disabled) return;
+
+      const previous = event.relatedTarget;
+      if (previous instanceof Element && previous.closest("button") === button) return;
+
+      playHoverSfx();
+    });
+
+
+
+    // Quiz
     function showQuestion() {
       if (current >= quiz.length) {
-        game.innerHTML = "";
-        const title = document.createElement("h2");
-        title.textContent = score >= Math.ceil(quiz.length * 0.8) ? "YOU ARE 100% GORAGLE" : "CERTIFICATION DENIED";
-        const result = document.createElement("p");
-        result.textContent = `You got ${score} out of ${quiz.length} correct.`;
-        const retry = document.createElement("button");
-        retry.className = "next";
-        retry.textContent = "Try again";
-        retry.onclick = () => { current = 0; score = 0; showQuestion(); };
-        game.append(title, result, retry);
+        showResult();
         return;
       }
 
       answered = false;
       game.innerHTML = "";
+
       const item = quiz[current];
+
       const count = document.createElement("div");
       count.className = "count";
       count.textContent = `Question ${current + 1} of ${quiz.length}`;
+
       const title = document.createElement("h2");
       title.textContent = item.question;
+
       game.append(count, title);
 
       item.answers.forEach((answer, index) => {
@@ -168,29 +417,176 @@
     function choose(index) {
       if (answered) return;
       answered = true;
+
       const item = quiz[current];
-      // Accept 4 as the fourth answer in the original question list.
       const correct = item.correct === 4 ? 3 : item.correct;
-      if (index === correct) score++;
+      const wasCorrect = index === correct;
+
+      if (wasCorrect) {
+        score++;
+        playCorrectSfx();
+      } else {
+        playWrongSfx();
+      }
+
       const buttons = game.querySelectorAll(".answer");
       buttons.forEach((button, i) => {
         button.disabled = true;
         if (i === correct) button.classList.add("right");
         else if (i === index) button.classList.add("wrong");
       });
+
       const feedback = document.createElement("div");
       feedback.className = "feedback";
-      feedback.innerHTML = index === correct ? "<strong>Correct! Nice job Goragle! </strong>" : "<strong>Wrong! Dumbass! </strong>";
+      feedback.innerHTML = wasCorrect
+        ? "<strong>Correct! Nice job Goragle! </strong>"
+        : "<strong>Wrong! Dumbass! </strong>";
+
       const next = document.createElement("button");
       next.className = "next";
       next.textContent = current === quiz.length - 1 ? "See result" : "Next question";
-      next.onclick = () => { current++; showQuestion(); };
+      next.onclick = () => {
+        current++;
+        showQuestion();
+      };
+
       feedback.append(next);
       game.append(feedback);
     }
 
-    if (quiz.length) showQuestion();
-    else game.textContent = "Add a question in the index file to start the exam.";
+    function showResult() {
+      game.innerHTML = "";
+
+      const passed = score >= Math.ceil(quiz.length * 0.8);
+
+      const title = document.createElement("h2");
+      title.textContent = passed ? "YOU ARE 100% GORAGLE" : "CERTIFICATION DENIED";
+
+      const result = document.createElement("p");
+      result.textContent = `You got ${score} out of ${quiz.length} correct.`;
+
+      game.append(title, result);
+
+      if (passed) {
+        showCertificateForm();
+      }
+
+      const retry = document.createElement("button");
+      retry.className = "secondary";
+      retry.textContent = "Try again";
+      retry.onclick = () => {
+        current = 0;
+        score = 0;
+        showQuestion();
+      };
+
+      game.append(retry);
+    }
+
+
+
+
+    // Certificate
+    function showCertificateForm() {
+      const form = document.createElement("form");
+      form.className = "certificate-form";
+
+      const label = document.createElement("label");
+      label.htmlFor = "certificate-name-input";
+      label.textContent = "Name on your Goragle Certificate";
+
+      const row = document.createElement("div");
+      row.className = "certificate-form-row";
+
+      const input = document.createElement("input");
+      input.id = "certificate-name-input";
+      input.type = "text";
+      input.maxLength = 60;
+      input.autocomplete = "name";
+      input.placeholder = "Enter your name";
+
+      const generate = document.createElement("button");
+      generate.className = "next";
+      generate.type = "submit";
+      generate.textContent = "Generate certificate";
+
+      const error = document.createElement("p");
+      error.className = "certificate-error";
+      error.setAttribute("aria-live", "polite");
+
+      row.append(input, generate);
+      form.append(label, row, error);
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = input.value.trim();
+        if (!name) {
+          error.textContent = "Enter a name for the certificate.";
+          input.focus();
+          return;
+        }
+
+        error.textContent = "";
+        renderCertificate(name);
+      });
+
+      game.append(form);
+      input.focus();
+    }
+
+    function renderCertificate(name) {
+      const existing = document.getElementById("certificate-wrap");
+      if (existing) existing.remove();
+
+      const wrap = document.createElement("div");
+      wrap.className = "certificate-wrap";
+      wrap.id = "certificate-wrap";
+
+      const certificate = document.createElement("section");
+      certificate.className = "certificate";
+      certificate.id = "certificate";
+      certificate.setAttribute("aria-label", `Goragle Certificate for ${name}`);
+
+      certificate.innerHTML = `
+        <div class="certificate-kicker">Goragle.store</div>
+        <h3>Goragle Certificate</h3>
+        <p>This Certifies that</p>
+        <div class="certificate-name" id="certificate-name"></div>
+        <p class="certificate-statement">is in fact <strong>100% Goragle</strong></p>
+        <div class="certificate-seal">100%<br>Goragle</div>
+        <p class="certificate-foot">Official Goragle Certification</p>
+      `;
+
+      certificate.querySelector("#certificate-name").textContent = name;
+
+      const actions = document.createElement("div");
+      actions.className = "certificate-actions";
+
+      const print = document.createElement("button");
+      print.className = "next";
+      print.type = "button";
+      print.textContent = "Print certificate";
+      print.onclick = () => window.print();
+
+      const changeName = document.createElement("button");
+      changeName.className = "secondary";
+      changeName.type = "button";
+      changeName.textContent = "Change name";
+      changeName.onclick = () => {
+        const input = document.getElementById("certificate-name-input");
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      };
+
+      actions.append(print, changeName);
+      wrap.append(certificate, actions);
+      game.append(wrap);
+
+      certificate.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   </script>
 </body>
 </html>
