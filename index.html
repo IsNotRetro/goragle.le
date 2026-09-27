@@ -382,8 +382,6 @@
       playHoverSfx();
     });
 
-
-
     // Quiz
     function showQuestion() {
       if (current >= quiz.length) {
@@ -482,9 +480,6 @@
 
       game.append(retry);
     }
-
-
-
 
     // Certificate
     function showCertificateForm() {
@@ -587,6 +582,9 @@
 
       certificate.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+
+    if (quiz.length) showQuestion();
+    else game.textContent = "Add a question in the index file to start the exam.";
   </script>
 </body>
 </html>
