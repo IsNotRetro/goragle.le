@@ -297,9 +297,7 @@
     let score = 0;
     let answered = false;
 
-    // -------------------------
-    // Sound effects
-    // -------------------------
+    // SFX
     let audioContext = null;
 
     function getAudioContext() {
@@ -362,8 +360,6 @@
       playTone(900, 0.035, { type: "sine", volume: 0.018, endFrequency: 1080 });
     }
 
-    // Browsers will not allow audio until the user has interacted with the page.
-    // This unlocks audio on their first click/tap/key press.
     function unlockAudio() {
       getAudioContext();
     }
